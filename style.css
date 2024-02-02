@@ -1,0 +1,63 @@
+    *,*::before,*::after {
+    box-sizing: border-box;
+    user-select: none;
+}
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    min-height: 100vh;
+    background-color: black;
+}
+.world {
+    overflow: hidden;
+    position: relative;
+    background-image: url(./img/hell-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.score {
+    position: absolute;
+    font-size: 3vmin;
+    right: 1vmin;
+    top: 1vmin;
+}
+.start-screen {
+    position: absolute;
+    font-size: 5vmin;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50px, -50px);
+    background-color: black;
+    color: orange;
+    border-radius: 15px;
+    width: 25%;
+    height: 17%;
+    text-align: center;
+    padding-top: 1%;
+    font-size: 1.875em;   
+}
+.hide {
+    display: none;
+}
+.ground {
+    --left: 0;
+    position: absolute;
+    width: 300%;
+    bottom: 0;
+    left: calc(var(--left) * 1%);
+}
+.dante {
+    --bottom: 0;
+    position: absolute;
+    left: 1%;
+    height: 30%;
+    bottom: calc(var(--bottom) * 1%);
+}
+.demon {
+   bottom: 0;
+    position: absolute;
+    height: 30%;
+    left: calc(var(--left) * 1%);
+}
