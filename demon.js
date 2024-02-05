@@ -5,7 +5,7 @@ import {
 } from "./customProperty.js";
 
 const SPEED = 0.05;
-const DEMON_INTERVAL_MIN = 500;
+const DEMON_INTERVAL_MIN = 700;
 const DEMON_INTERVAL_MAX = 2500;
 const worldElement = document.querySelector("[data-world]");
 

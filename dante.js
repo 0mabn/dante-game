@@ -6,7 +6,7 @@ import {
 
 const danteElement = document.querySelector("[data-dante]");
 const JUMP_SPEED = 0.45;
-const GRAVITY = 0.00145;
+const GRAVITY = 0.0014;
 const DANTE_RUNNING_FRAME_COUNT = 3;
 const DANTE_JUMPING_FRAME_COUNT = 2;
 const FRAME_TIME = 300;
@@ -15,7 +15,7 @@ let isJumping;
 let danteFrame;
 let currentFrameTime;
 let velocityY;
-let danteJumpingFrame;
+// let danteJumpingFrame;
 export function updateDante(delta, speedScale) {
   handleRun(delta, speedScale);
   handleJump(delta);
@@ -24,7 +24,7 @@ export function updateDante(delta, speedScale) {
 export function setupDante() {
   isJumping = false;
   danteFrame = 0;
-  danteJumpingFrame = 0;
+  // danteJumpingFrame = 0;
   currentFrameTime = 0;
   velocityY = 0;
   setCustomProperty(danteElement, "--bottom", 0);
@@ -34,8 +34,8 @@ export function setupDante() {
 
 function handleRun(delta, speedScale) {
   if (isJumping) {
-    danteJumpingFrame = (danteJumpingFrame + 2) % DANTE_JUMPING_FRAME_COUNT;
-    danteElement.src = `./img/dante-jumping-${danteJumpingFrame}.png`;
+    // danteJumpingFrame = (danteJumpingFrame + 1) % DANTE_JUMPING_FRAME_COUNT;
+    danteElement.src = `./img/dante-jumping-0.png`;
     return;
   }
   if (currentFrameTime > -FRAME_TIME) {

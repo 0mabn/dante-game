@@ -21,22 +21,27 @@ body {
     position: absolute;
     font-size: 3vmin;
     right: 1vmin;
-    top: 1vmin;
+    top: 2.5vmin;
+    color: orange;
+}
+.high-score {
+    position: absolute;
+    font-size: 3vmin;
+    right: 1vmin;
+    top: 0.1vmin;
+    color: orange;
 }
 .start-screen {
     position: absolute;
     font-size: 5vmin;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50px, -50px);
+    top: 45%;
+    left: 42%;
+    transform: translate(-45px, -42px);
     background-color: black;
     color: orange;
-    border-radius: 15px;
-    width: 25%;
-    height: 17%;
+    border-radius: 20px;
     text-align: center;
-    padding-top: 1%;
-    font-size: 1.875em;   
+    padding: 0.4em;
 }
 .hide {
     display: none;

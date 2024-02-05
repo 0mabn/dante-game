@@ -14,6 +14,7 @@ const SPEED_SCALE_INCREASE = 0.00001;
 const worldElement = document.querySelector("[data-world]");
 const scoreElement = document.querySelector("[data-score]");
 const startScreenElement = document.querySelector("[data-start]");
+const highScoreElement = document.querySelector("[data-high-score]");
 
 setPixelToWorldScale();
 window.addEventListener("resize", setPixelToWorldScale);
@@ -24,6 +25,7 @@ setupGround();
 let lastTime;
 let speedScale;
 let score;
+let highScore;
 
 function update(time) {
   if (lastTime == null) {
@@ -40,7 +42,7 @@ function update(time) {
   updateScore(delta);
   updateDemon(delta, speedScale);
 
-  if (checkLose()) return handleLose;
+  if (checkLose()) return handleLose();
 
   lastTime = time;
   window.requestAnimationFrame(update);
@@ -49,7 +51,6 @@ function update(time) {
 function updateSpeedScale(delta) {
   speedScale += delta * SPEED_SCALE_INCREASE;
 }
-
 function handleStart() {
   lastTime = null;
   speedScale = 1;
@@ -64,6 +65,11 @@ function handleStart() {
 function updateScore(delta) {
   score += delta * 0.01;
   scoreElement.textContent = Math.floor(score);
+
+  if (score > highScore) {
+    highScore = score;
+    highScoreElement.textContent = Math.floor(highScore);
+  }
 }
 
 function checkLose() {
@@ -79,13 +85,22 @@ function isCollision(rect1, rect2) {
     rect1.bottom > rect2.top
   );
 }
-
 function handleLose() {
   setDanteLose();
+
+  if (score > highScore) {
+    highScore = score;
+    updateHighScore();
+  }
+
   setTimeout(() => {
     document.addEventListener("keydown", handleStart, { once: true });
     startScreenElement.classList.remove("hide");
-  }, 10);
+  }, 100);
+}
+
+function updateHighScore() {
+  highScoreElement.textContent = Math.floor(highScore);
 }
 
 window.requestAnimationFrame(update);
