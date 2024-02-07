@@ -14,21 +14,20 @@ const SPEED_SCALE_INCREASE = 0.00001;
 const worldElement = document.querySelector("[data-world]");
 const scoreElement = document.querySelector("[data-score]");
 const startScreenElement = document.querySelector("[data-start]");
-const highScoreElement = document.querySelector("[data-high-score]");
-
-setPixelToWorldScale();
-window.addEventListener("resize", setPixelToWorldScale);
-document.addEventListener("keydown", handleStart, { once: true });
-
-setupGround();
+const highScoreElement = document.querySelector("[data-highscore]");
 
 let lastTime;
 let speedScale;
 let score;
-let highScore;
+let highScore = 0;
+
+setPixelToWorldScale();
+window.addEventListener("resize", setPixelToWorldScale);
+document.addEventListener("keydown", handleStart, { once: true });
+setupGround();
 
 function update(time) {
-  if (lastTime == null) {
+  if (!lastTime) {
     lastTime = time;
     window.requestAnimationFrame(update);
     return;
@@ -51,6 +50,7 @@ function update(time) {
 function updateSpeedScale(delta) {
   speedScale += delta * SPEED_SCALE_INCREASE;
 }
+
 function handleStart() {
   lastTime = null;
   speedScale = 1;
@@ -68,13 +68,8 @@ function updateScore(delta) {
 
   if (score > highScore) {
     highScore = score;
-    highScoreElement.textContent = Math.floor(highScore);
+    updateHighScore();
   }
-}
-
-function checkLose() {
-  const danteRect = getDanteRectangle();
-  return getDemonRectangle().some((rect) => isCollision(rect, danteRect));
 }
 
 function isCollision(rect1, rect2) {
@@ -85,9 +80,14 @@ function isCollision(rect1, rect2) {
     rect1.bottom > rect2.top
   );
 }
+
+function checkLose() {
+  const danteRect = getDanteRectangle();
+  return getDemonRectangle().some((rect) => isCollision(rect, danteRect));
+}
+
 function handleLose() {
   setDanteLose();
-
   if (score > highScore) {
     highScore = score;
     updateHighScore();
@@ -103,15 +103,13 @@ function updateHighScore() {
   highScoreElement.textContent = Math.floor(highScore);
 }
 
-window.requestAnimationFrame(update);
-
 function setPixelToWorldScale() {
-  let worldToPixelScale;
-  if (window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT) {
-    worldToPixelScale = window.innerWidth / WORLD_WIDTH;
-  } else {
-    worldToPixelScale = window.innerHeight / WORLD_HEIGHT;
-  }
+  const aspectRatio = window.innerWidth / window.innerHeight;
+  const worldToPixelScale =
+    aspectRatio < WORLD_WIDTH / WORLD_HEIGHT
+      ? window.innerWidth / WORLD_WIDTH
+      : window.innerHeight / WORLD_HEIGHT;
+
   worldElement.style.width = `${WORLD_WIDTH * worldToPixelScale}px`;
   worldElement.style.height = `${WORLD_HEIGHT * worldToPixelScale}px`;
 }

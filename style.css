@@ -33,7 +33,7 @@ body {
 }
 .start-screen {
     position: absolute;
-    font-size: 5vmin;
+    font-size: 4.5vmin;
     top: 45%;
     left: 42%;
     transform: translate(-45px, -42px);
@@ -42,7 +42,10 @@ body {
     border-radius: 20px;
     text-align: center;
     padding: 0.4em;
+    opacity: 0.89;
+    border: 3px solid orange;
 }
+
 .hide {
     display: none;
 }

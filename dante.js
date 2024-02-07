@@ -5,10 +5,10 @@ import {
 } from "./customProperty.js";
 
 const danteElement = document.querySelector("[data-dante]");
-const JUMP_SPEED = 0.45;
-const GRAVITY = 0.0014;
+const JUMP_SPEED = 0.445;
+const GRAVITY = 0.0016;
 const DANTE_RUNNING_FRAME_COUNT = 3;
-const DANTE_JUMPING_FRAME_COUNT = 2;
+// const DANTE_JUMPING_FRAME_COUNT = 2;
 const FRAME_TIME = 300;
 
 let isJumping;
