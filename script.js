@@ -9,7 +9,8 @@ import { updateDemon, setupDemon, getDemonRectangle } from "./demon.js";
 
 const WORLD_WIDTH = 100;
 const WORLD_HEIGHT = 30;
-const SPEED_SCALE_INCREASE = 0.00001;
+let SPEED_SCALE_INCREASE = 0.00001; // Base speed scale increase
+let difficulty = "medium"; // Default difficulty level
 
 const worldElement = document.querySelector("[data-world]");
 const scoreElement = document.querySelector("[data-score]");
@@ -25,6 +26,12 @@ setPixelToWorldScale();
 window.addEventListener("resize", setPixelToWorldScale);
 document.addEventListener("keydown", handleStart, { once: true });
 setupGround();
+
+document.getElementById("difficulty-select").addEventListener("change", function(event) {
+    const selectedDifficulty = event.target.value;
+    setDifficulty(selectedDifficulty); // Call the setDifficulty function with the selected difficulty level
+});
+
 
 function update(time) {
   if (!lastTime) {
@@ -112,4 +119,23 @@ function setPixelToWorldScale() {
 
   worldElement.style.width = `${WORLD_WIDTH * worldToPixelScale}px`;
   worldElement.style.height = `${WORLD_HEIGHT * worldToPixelScale}px`;
+}
+
+// Function to set difficulty
+function setDifficulty(difficultyLevel) {
+  difficulty = difficultyLevel;
+  switch (difficulty) {
+    case "easy":
+      SPEED_SCALE_INCREASE = 0.000005; // Adjust the speed scale increase for easy difficulty
+      break;
+    case "medium":
+      SPEED_SCALE_INCREASE = 0.00001; // Adjust the speed scale increase for medium difficulty
+      break;
+    case "hard":
+      SPEED_SCALE_INCREASE = 0.00002; // Adjust the speed scale increase for hard difficulty
+      break;
+    default:
+      SPEED_SCALE_INCREASE = 0.00001; // Default to medium difficulty
+      break;
+  }
 }
